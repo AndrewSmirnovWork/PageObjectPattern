@@ -1,7 +1,7 @@
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import pages.HomePage;
@@ -15,25 +15,29 @@ public class TestLoginPage {
     HomePage homePage;
 
     @BeforeTest
-    public void setup(){
+    public void setup() {
         //String browser = java.lang.System.getProperties().getProperty("webbrowser");
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Luck\\Desktop\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Luck\\IdeaProjects\\Projects\\PageObjectPattern\\chromedriver.exe");
         driver = new ChromeDriver();
-        //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
-    @Test
+    @AfterTest
+    public void quit() {
+        driver.manage().deleteAllCookies();
+        driver.quit();
+    }
+
+/*    @Test
     public void testLogin() {
         driver.get("https://igorakintev.ru/");
         loginPage.typeUsername("selenium")
                 .typePassword("super_password")
                 .submitLogin();
-
         Assert.assertEquals(driver.getTitle(), "Администрирование сайта | Панель управления");
-    }
+    }*/
 
-    /*@Test
+    @Test
     public void test_Home_Page_Appear_Correct(){
         //Create Login Page object
         loginPage = new LoginPage(driver);
@@ -45,5 +49,5 @@ public class TestLoginPage {
         //Verify home page
         System.out.println(homePage.getHomePageDashboardName());
         //Assert.assertTrue(homePage.getHomePageDashboardName().toLowerCase().contains("admin"));
-    }*/
+    }
 }
