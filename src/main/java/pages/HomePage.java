@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 public class HomePage {
 
     WebDriver driver;
-    By homePageName = By.xpath("https://igorakintev.ru/admin/");
+    By homePageName = By.xpath("/html/head/title/");
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
