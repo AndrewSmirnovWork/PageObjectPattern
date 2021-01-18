@@ -28,16 +28,16 @@ public class TestLoginPage {
         driver.quit();
     }
 
-/*    @Test
+    @Test
     public void testLogin() {
         driver.get("https://igorakintev.ru/");
         loginPage.typeUsername("selenium")
                 .typePassword("super_password")
                 .submitLogin();
         Assert.assertEquals(driver.getTitle(), "Администрирование сайта | Панель управления");
-    }*/
+    }
 
-    @Test
+/*    @Test
     public void test_Home_Page_Appear_Correct(){
         //Create Login Page object
         loginPage = new LoginPage(driver);
@@ -49,5 +49,5 @@ public class TestLoginPage {
         //Verify home page
         System.out.println(homePage.getHomePageDashboardName());
         //Assert.assertTrue(homePage.getHomePageDashboardName().toLowerCase().contains("admin"));
-    }
+    }*/
 }
