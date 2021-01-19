@@ -2,10 +2,6 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-
-import java.util.concurrent.TimeUnit;
 
 public class LoginPage {
 /*    @FindBy(xpath = "//*[contains(@id, 'id_username')]")
@@ -17,11 +13,10 @@ public class LoginPage {
     @FindBy(xpath = "//*[contains(text(), 'Войти')]")
     private WebElement loginButton;*/
 
+    protected WebDriver driver;
     By usernameLocator = By.id("id_username");
     By passwordLocator = By.id("id_password");
     By loginButtonLocator = By.xpath("/html/body/div/div[2]/div/form/div[3]/input");
-
-    protected WebDriver driver;
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
@@ -45,11 +40,6 @@ public class LoginPage {
         driver.findElement(loginButtonLocator).submit();
         return new HomePage(driver);
     }
-
-    /*public LoginPage submitLoginExpectingFailure() {
-        driver.findElement(loginButtonLocator).submit();
-        return new LoginPage(driver);
-    }*/
 
     public HomePage loginAs(String username, String password) {
         typeUsername(username);

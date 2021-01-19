@@ -18,8 +18,9 @@ public class HomePage {
         driver.findElement(addEntryButton).click();
         return new AddEntryPage(driver);
     }
-    public AddEntryPage changeEntry() {
+
+    public AllEntriesPage goToChangeEntryPage() {
         driver.findElement(changeEntryButton).click();
-        return new AddEntryPage(driver);
+        return new AllEntriesPage(driver);
     }
 }

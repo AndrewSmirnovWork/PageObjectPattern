@@ -1,23 +1,21 @@
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import pages.AddEntryPage;
-import pages.BlogPage;
-import pages.HomePage;
-import pages.LoginPage;
+import pages.*;
 
 import java.util.concurrent.TimeUnit;
 
-public class TestLoginPage {
+public class ComplexTestPage {
     WebDriver driver;
     LoginPage loginPage;
     HomePage homePage;
     AddEntryPage addEntryPage;
     BlogPage blogPage;
+    AllEntriesPage allEntriesPage;
+    ChangeEntryPage changeEntryPage;
 
 
     @BeforeTest
@@ -49,20 +47,30 @@ public class TestLoginPage {
         Assert.assertEquals(driver.getTitle(), "Добавить entry | Панель управления");
         addEntryPage = new AddEntryPage(driver);
         // Save new Entry
-        addEntryPage.saveEntry("Title" + (int) (Math.random() * 10000),
-                "slug" + (int) (Math.random() * 10000),
-                "textmarkdown" + (int) (Math.random() * 10000),
-                "text" + (int) (Math.random() * 10000));
+        addEntryPage.typeTittle("Title" + (int) (Math.random() * 10000))
+                .typeSlug("slug" + (int) (Math.random() * 10000))
+                .typeTextMarkdown("textmarkdown" + (int) (Math.random() * 10000))
+                .typeText("text" + (int) (Math.random() * 10000))
+                .submitSave();
 
         //go to site and check entry
         driver.get("http://igorakintev.ru/blog/");
         blogPage = new BlogPage(driver);
+        System.out.println(addEntryPage.getTittle());
+        System.out.println(addEntryPage.getSlug());
+        //Assert.assertEquals(addEntryPage.getTittle(), driver.findElement(By.xpath("//*[@id=\"entries\"]/h2[1]/a")).getText());
+        //Assert.assertEquals(addEntryPage.getSlug(), driver.findElement(By.xpath("/html/body/div[2]/div[1]/p")).getText());
 
-        Assert.assertEquals(addEntryPage.getTittle(), driver.findElement(By.xpath("/html/body/div[2]/h2[1]/a")).getText());
-        Assert.assertEquals(addEntryPage.getSlug(), driver.findElement(By.xpath("/html/body/div[2]/div[1]/p")).getText());
         //deleting entry
         driver.get("https://igorakintev.ru/admin/");
-        homePage.changeEntry();
+        homePage.goToChangeEntryPage();
+        //go to last entry
+        allEntriesPage = new AllEntriesPage(driver);
+        allEntriesPage.changeEntry();
+        //delete entry
+        changeEntryPage = new ChangeEntryPage(driver);
+        changeEntryPage.deleteEntry();
+        Assert.assertEquals(driver.getTitle(), "Выберите entry для изменения | Панель управления");
     }
 
 

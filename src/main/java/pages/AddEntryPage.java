@@ -7,16 +7,21 @@ public class AddEntryPage {
 
     protected WebDriver driver;
 
-    //*[@id="content"]/h1
-    By addEntryHeader = By.xpath("//*[@id=content]/h1");
-
     By tittleLocator = By.id("id_title");
-    private String tittle;
     By slugLocator = By.id("id_slug");
-    private String slug;
     By textMarkdownLocator = By.id("id_text_markdown");
-    By textLocator = By.name("text");
+    By textLocator = By.xpath("/html/body/div[1]/div[3]/div/form/div/fieldset/div[6]/div/textarea");
     By saveButtonLocator = By.name("_save");
+    private String tittle;
+    private String slug;
+
+    public AddEntryPage(WebDriver driver) {
+        this.driver = driver;
+        if (!driver.getTitle().equals("Добавить entry | Панель управления")) {
+            throw new IllegalStateException("This is not Add entry page of logged in user," +
+                    " current page is: " + driver.getCurrentUrl());
+        }
+    }
 
     public String getTittle() {
         return tittle;
@@ -24,14 +29,6 @@ public class AddEntryPage {
 
     public String getSlug() {
         return slug;
-    }
-
-    public AddEntryPage(WebDriver driver) {
-        this.driver = driver;
-        if (!driver.getTitle().equals("Добавить entry | Панель управления")) {
-            throw new IllegalStateException("This is not Home Page of logged in user," +
-                    " current page is: " + driver.getCurrentUrl());
-        }
     }
 
     public AddEntryPage typeTittle(String tittle) {
@@ -60,6 +57,8 @@ public class AddEntryPage {
         driver.findElement(saveButtonLocator).submit();
         return new HomePage(driver);
     }
+
+
     public HomePage saveEntry(String tittle, String slug, String textMarkdown, String text) {
         typeTittle(tittle);
         typeSlug(slug);
