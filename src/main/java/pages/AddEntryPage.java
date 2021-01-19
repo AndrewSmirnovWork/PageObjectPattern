@@ -8,8 +8,8 @@ public class AddEntryPage {
     protected WebDriver driver;
 
     By tittleLocator = By.id("id_title");
-    By slugLocator = By.id("id_slug");
-    By textMarkdownLocator = By.id("id_text_markdown");
+    By slugLocator = By.xpath("//*[@id=\"id_slug\"]");
+    By textMarkdownLocator = By.xpath("//*[@id=\"id_text_markdown\"]");
     By textLocator = By.xpath("/html/body/div[1]/div[3]/div/form/div/fieldset/div[6]/div/textarea");
     By saveButtonLocator = By.name("_save");
     private String tittle;
