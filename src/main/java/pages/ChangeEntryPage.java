@@ -19,6 +19,5 @@ public class ChangeEntryPage {
     public void deleteEntry() {
         driver.findElement(deleteButton).click();
         driver.findElement(confirmButton).click();
-        //return new AllEntriesPage(driver);
     }
 }
